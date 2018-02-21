@@ -32,10 +32,11 @@ app.post('/', (req, res) => {
 			} else {
 				const charge = body.data.object;
 				const source = body.data.object.source;
-				const bookingId = customer.description.replace(
+				const bookingId = charge.description.replace(
 					'Leave in Time Nantes - Réservation ',
 					''
 				);
+				console.log(bookingId);
 				setTimeout(() => {
 					getBookeoDetails(bookingId, (err, data) => {
 						if (err) {
