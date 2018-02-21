@@ -1,0 +1,24 @@
+{
+  "name": "lit-factures",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/xseignard/lit-factures.git"
+  },
+  "author": "Xavier Seignard <xavier.seignard@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xseignard/lit-factures/issues"
+  },
+  "homepage": "https://github.com/xseignard/lit-factures#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "stripe": "^5.4.0"
+  }
+}
