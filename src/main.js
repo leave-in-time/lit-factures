@@ -36,31 +36,33 @@ app.post('/', (req, res) => {
 					'Leave in Time Nantes - Réservation ',
 					''
 				);
-				getBookeoDetails(bookingId, (err, data) => {
-					if (err) {
-						console.log(err);
-						res.sendStatus(500);
-					} else {
-						console.log(`Customer decription: ${customer.description}`);
-						console.log(`Customer email: ${customer.email}`);
-						console.log(`Bookeo booking id: ${bookingId}`);
-						console.log(`Stripe charge id: ${charge.id}`);
-						console.log(`Receipt email: ${charge.receipt_email}`);
-						console.log(`Charge description: ${charge.description}`);
-						console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
-						console.log(`Source name: ${source.name}`);
-						console.log(
-							`Source address:
-						${source.address_line1}
-						${source.address_line2}
-						${source.address_zip} ${source.address_city}
-						${source.address_country}`
-						);
-						console.log(data);
-						console.log('======================');
-						res.sendStatus(200);
-					}
-				});
+				setTimeout(() => {
+					getBookeoDetails(bookingId, (err, data) => {
+						if (err) {
+							console.log(err);
+							res.sendStatus(500);
+						} else {
+							console.log(`Customer decription: ${customer.description}`);
+							console.log(`Customer email: ${customer.email}`);
+							console.log(`Bookeo booking id: ${bookingId}`);
+							console.log(`Stripe charge id: ${charge.id}`);
+							console.log(`Receipt email: ${charge.receipt_email}`);
+							console.log(`Charge description: ${charge.description}`);
+							console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
+							console.log(`Source name: ${source.name}`);
+							console.log(
+								`Source address:
+							${source.address_line1}
+							${source.address_line2}
+							${source.address_zip} ${source.address_city}
+							${source.address_country}`
+							);
+							console.log(data);
+							console.log('======================');
+							res.sendStatus(200);
+						}
+					});
+				}, 10000);
 			}
 		});
 	}
