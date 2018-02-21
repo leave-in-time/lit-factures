@@ -9,7 +9,10 @@ const keysParams = `?apiKey=${process.env.BOOKEO_API_KEY}&secretKey=${
 
 const getBookeoDetails = (bookingId, cb) => {
 	const url = `${baseUrl}${bookingId}${keysParams}`;
+	console.log(url);
 	request({ url, json: true }, (err, res, body) => {
+		console.log(err);
+		console.log(res);
 		if (!err && res.statusCode === 200) {
 			const data = {
 				persons: body.participants.numbers[0].number,
