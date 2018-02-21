@@ -1,8 +1,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 
-const stripe = require('stripe')('sk_test_sbTMVyuXrwNGTef1RmKI3Np3');
-const endpointSecret = 'whsec_blSjcGhK1UHRbyGwXa9wSaK9FzLErNIS';
+const stripe = require('stripe')('sk_live_j73lbyAM49vIPJpQsf19sP5N');
+const endpointSecret = 'whsec_xmla4uKohySHp5XLz40jkNHRaOpnycQY';
 
 const app = express();
 app.use(bodyParser.raw({ type: '*/*' }));
@@ -19,3 +19,5 @@ app.post('/', (req, res) => {
 	console.log(body);
 	res.send(200);
 });
+
+app.listen(3300, () => console.log('Running on port 3300 ...'));
