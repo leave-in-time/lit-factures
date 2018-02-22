@@ -40,7 +40,6 @@ app.post('/', (req, res) => {
 				console.log(`Bookeo booking id: ${bookeoType.bookingId}`);
 				console.log(`Stripe charge id: ${charge.id}`);
 				console.log(`Receipt email: ${charge.receipt_email}`);
-				console.log(`Charge description: ${charge.description}`);
 				console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
 				console.log(`Source name: ${source.name}`);
 				console.log(
@@ -49,7 +48,7 @@ app.post('/', (req, res) => {
 					} ${source.address_city}\n${source.address_country}`
 				);
 				if (bookeoType.bookingId) {
-					getBookeoDetails(bookingId, (err, data) => {
+					getBookeoDetails(bookeoType.bookingId, (err, data) => {
 						if (err) {
 							console.log(err);
 							res.sendStatus(500);
