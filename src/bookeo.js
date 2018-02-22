@@ -20,8 +20,24 @@ const getBookeoDetails = (bookingId, cb) => {
 				title: body.title,
 			};
 			cb(null, data);
-		} else cb({ err: 'Failed to get bookeo details' });
+		} else cb(err);
 	});
 };
 
-module.exports = getBookeoDetails;
+const getBookeoType = description => {
+	const voucherDescription = 'leave-in-time - Chèque-cadeau';
+	const multipleDescription = 'réservations';
+	const singleDescription = 'Leave in Time Nantes - Réservation ';
+	if (description === voucherDescription) return { type: 'voucher' };
+	else if (decription.includes(multipleDescription)) return { type: 'multiple' };
+	else {
+		const bookingId = description.replace(singleDescription, '');
+		if (isNaN(bookingId)) return { type: 'unknown' };
+		else return { type: 'single', bookingId };
+	}
+};
+
+module.exports = {
+	getBookeoDetails,
+	getBookeoType,
+};

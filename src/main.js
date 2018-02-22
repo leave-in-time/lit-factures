@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const getBookeoDetails = require('./bookeo');
+const { getBookeoDetails, getBookeoType } = require('./bookeo');
 
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
@@ -32,35 +32,35 @@ app.post('/', (req, res) => {
 			} else {
 				const charge = body.data.object;
 				const source = body.data.object.source;
-				const bookingId = charge.description.replace(
-					'Leave in Time Nantes - Réservation ',
-					''
+				const bookeoType = getBookeoType(charge.description);
+				console.log('======================');
+				console.log(`Customer decription: ${customer.description}`);
+				console.log(`Customer email: ${customer.email}`);
+				console.log(`Charge description: ${charge.description}`);
+				console.log(`Bookeo booking id: ${bookeoType.bookingId}`);
+				console.log(`Stripe charge id: ${charge.id}`);
+				console.log(`Receipt email: ${charge.receipt_email}`);
+				console.log(`Charge description: ${charge.description}`);
+				console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
+				console.log(`Source name: ${source.name}`);
+				console.log(
+					`Source address:\n${source.address_line1}\n${source.address_line2}\n${
+						source.address_zip
+					} ${source.address_city}\n${source.address_country}`
 				);
-				getBookeoDetails(bookingId, (err, data) => {
-					if (err) {
-						console.log(err);
-						res.sendStatus(500);
-					} else {
-						console.log(`Customer decription: ${customer.description}`);
-						console.log(`Customer email: ${customer.email}`);
-						console.log(`Bookeo booking id: ${bookingId}`);
-						console.log(`Stripe charge id: ${charge.id}`);
-						console.log(`Receipt email: ${charge.receipt_email}`);
-						console.log(`Charge description: ${charge.description}`);
-						console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
-						console.log(`Source name: ${source.name}`);
-						console.log(
-							`Source address:
-						${source.address_line1}
-						${source.address_line2}
-						${source.address_zip} ${source.address_city}
-						${source.address_country}`
-						);
-						console.log(data);
-						console.log('======================');
-						res.sendStatus(200);
-					}
-				});
+				if (bookeoType.bookingId) {
+					getBookeoDetails(bookingId, (err, data) => {
+						if (err) {
+							console.log(err);
+							res.sendStatus(500);
+						} else {
+							console.log(data);
+							res.sendStatus(200);
+						}
+					});
+				} else {
+					res.sendStatus(200);
+				}
 			}
 		});
 	}
