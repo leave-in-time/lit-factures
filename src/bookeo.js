@@ -29,7 +29,7 @@ const getBookeoType = description => {
 	const multipleDescription = 'réservations';
 	const singleDescription = 'Leave in Time Nantes - Réservation ';
 	if (description === voucherDescription) return { type: 'voucher' };
-	else if (decription.includes(multipleDescription)) return { type: 'multiple' };
+	else if (description.includes(multipleDescription)) return { type: 'multiple' };
 	else {
 		const bookingId = description.replace(singleDescription, '');
 		if (isNaN(bookingId)) return { type: 'unknown' };
