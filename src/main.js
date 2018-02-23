@@ -36,7 +36,7 @@ app.post('/', (req, res) => {
 				console.log('body');
 				console.log(body);
 				console.log('charge');
-				console.log(chage);
+				console.log(charge);
 				console.log('source');
 				console.log(source);
 				console.log('======================');
