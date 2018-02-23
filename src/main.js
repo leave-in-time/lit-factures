@@ -4,7 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const { getBookeoDetails, getBookeoType } = require('./bookeo');
-const generateSellsyData = require('./utils');
+// const generateSellsyData = require('./utils');
 
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
