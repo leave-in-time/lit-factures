@@ -30,16 +30,6 @@ app.post('/', (req, res) => {
 			} else {
 				const charge = body.data.object;
 				const source = body.data.object.source;
-				console.log('======================');
-				console.log('customer');
-				console.log(customer);
-				console.log('body');
-				console.log(body);
-				console.log('charge');
-				console.log(charge);
-				console.log('source');
-				console.log(source);
-				console.log('======================');
 				if (charge.receipt_email === 'escape@leave-in-time.com') {
 					generateSellsyData(customer, charge, source, (err, data) => {
 						sellsyProcess(data, (err, result) => {
