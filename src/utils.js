@@ -84,7 +84,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 		},
 	};
 	if (bookeoType.bookingId) {
-		getBookeoDetails(bookeo, (err, data) => {
+		getBookeoDetails(bookeoType.bookingId, (err, data) => {
 			if (err)
 				invoice.row['1'].row_notes = `Votre réservation.\nCode Bookeo : ${
 					bookeoType.bookingId
