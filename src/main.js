@@ -4,6 +4,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const { getBookeoDetails, getBookeoType } = require('./bookeo');
+const generateSellsyData = require('./utils');
 
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
@@ -33,20 +34,14 @@ app.post('/', (req, res) => {
 				const charge = body.data.object;
 				const source = body.data.object.source;
 				const bookeoType = getBookeoType(charge.description);
-				console.log('======================');
-				console.log(`Customer decription: ${customer.description}`);
-				console.log(`Customer email: ${customer.email}`);
-				console.log(`Charge description: ${charge.description}`);
-				console.log(`Bookeo booking id: ${bookeoType.bookingId}`);
-				console.log(`Stripe charge id: ${charge.id}`);
-				console.log(`Receipt email: ${charge.receipt_email}`);
-				console.log(`Amount: ${charge.amount / 100} ${charge.currency}`);
-				console.log(`Source name: ${source.name}`);
-				console.log(
-					`Source address:\n${source.address_line1}\n${source.address_line2}\n${
-						source.address_zip
-					} ${source.address_city}\n${source.address_country}`
-				);
+				console.log('customer');
+				console.log(customer);
+				console.log('body');
+				console.log(body);
+				console.log('charge');
+				console.log(chage);
+				console.log('source');
+				console.log(source);
 				if (bookeoType.bookingId) {
 					getBookeoDetails(bookeoType.bookingId, (err, data) => {
 						if (err) {
