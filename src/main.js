@@ -30,7 +30,10 @@ app.post('/', (req, res) => {
 			} else {
 				const charge = body.data.object;
 				const source = body.data.object.source;
-				if (charge.receipt_email === 'escape@leave-in-time.com') {
+				if (
+					charge.receipt_email === 'escape@leave-in-time.com' ||
+					charge.receipt_email === 'xavier.seignard@gmail.com'
+				) {
 					generateSellsyData(customer, charge, source, (err, data) => {
 						sellsyProcess(data, (err, result) => {
 							if (err) {

@@ -40,7 +40,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 
 	// payment data
 	const payment = {
-		date: Date.now(),
+		date: Math.floor(Date.now() / 1000),
 		amount: ttcAmount,
 		stripe: charge.id,
 	};
