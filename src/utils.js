@@ -5,28 +5,28 @@ dotenv.config();
 
 const { getBookeoDetails, getBookeoType } = require('./bookeo');
 
-const generateSellsyData = (customer, charge, source, cb) => {
+const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 	// customer data
 	const customer = {
 		third: {
-			name: customer.description,
+			name: stripeCustomer.description,
 			email: charge.receipt_email,
 			type: 'person',
 		},
 		contact: {
-			name: customer.description,
+			name: stripeCustomer.description,
 			forename: '',
 			civil: '',
 		},
 		address: {
-			name: customer.description,
+			name: stripeCustomer.description,
 			part1: source.address_line1,
 			zip: source.address_zip,
 			town: source.address_city,
 			countrycode: source.address_country,
 		},
 	};
-	if (source.address_line2) customer.address.part2 = source.address_line2;
+	if (source.address_line2) stripeCustomer.address.part2 = source.address_line2;
 
 	// custom fields data
 	const customFields = {
