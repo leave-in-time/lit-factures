@@ -1,4 +1,4 @@
-const moment = require('moment');
+const moment = require('moment-timezone');
 moment.locale('fr');
 const dotenv = require('dotenv');
 dotenv.config();
@@ -90,7 +90,9 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 					bookeoType.bookingId
 				}`;
 			else {
-				const horaire = moment(data.startTime).format('dddd D MMMM YYYY à HH:mm');
+				const horaire = moment(data.startTime)
+					.tz('Europe/Paris')
+					.format('dddd D MMMM YYYY à HH:mm');
 				invoice.row['1'].row_notes = `${data.room} le ${horaire} pour ${
 					data.persons
 				} joueurs.\nCode Bookeo : ${bookeoType.bookingId}`;
