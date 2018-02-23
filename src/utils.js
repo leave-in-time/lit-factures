@@ -36,7 +36,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 	const bookeoType = getBookeoType(charge.description);
 	if (bookeoType.bookingId) customFields.bookeo = bookeoType.bookingId;
 	const ttcAmount = charge.amount / 100;
-	const htAmount = ttcAmount - ttcAmount * process.env.LIT_TVA / 100;
+	const htAmount = ttcAmount / (1 + process.env.LIT_TVA / 100);
 
 	// payment data
 	const payment = {
@@ -54,13 +54,13 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 			break;
 		case 'multiple':
 			row_name = 'Réservations';
-			row_notes = 'Multiples réservations';
+			row_notes = 'Multiples réservations de salles';
 			break;
 		case 'single':
 			row_name = 'Réservation';
 			break;
 		default:
-			row_name = 'Inconnu';
+			row_name = 'Divers';
 			row_notes = `Votre achat d'une valeur de ${ttcAmount} €`;
 			break;
 	}
@@ -77,7 +77,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 				row_type: 'once',
 				row_name,
 				row_notes,
-				row_unitAmount: htAmount,
+				row_unitAmount: ttcAmount,
 				row_qt: 1,
 				row_tax: process.env.LIT_TVA,
 			},
@@ -90,9 +90,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 					bookeoType.bookingId
 				}`;
 			else {
-				const horaire = moment('2018-03-03T12:00:00+01:00').format(
-					'dddd D MMMM YYYY à HH:mm'
-				);
+				const horaire = moment(data.startTime).format('dddd D MMMM YYYY à HH:mm');
 				invoice.row['1'].row_notes = `${data.room} le ${horaire} pour ${
 					data.persons
 				} joueurs.\nCode Bookeo : ${bookeoType.bookingId}`;
