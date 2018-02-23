@@ -77,7 +77,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 				row_type: 'once',
 				row_name,
 				row_notes,
-				row_unitAmount: ttcAmount,
+				row_unitAmount: htAmount,
 				row_qt: 1,
 				row_tax: process.env.LIT_TVA,
 			},
