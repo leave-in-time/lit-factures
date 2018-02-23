@@ -20,7 +20,7 @@ const getBookeoDetails = (bookingId, cb) => {
 				title: body.title,
 			};
 			cb(null, data);
-		} else cb(err);
+		} else cb(new Error('Failed to get bookeo data'));
 	});
 };
 

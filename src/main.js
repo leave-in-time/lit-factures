@@ -3,8 +3,8 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 dotenv.config();
 
-const { getBookeoDetails, getBookeoType } = require('./bookeo');
-// const generateSellsyData = require('./utils');
+const generateSellsyData = require('./utils');
+const sellsyProcess = require('./sellsy');
 
 const stripe = require('stripe')(process.env.STRIPE_KEY);
 const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
@@ -17,9 +17,6 @@ app.get('/', (req, res) => {
 });
 
 app.post('/', (req, res) => {
-	// const sig = req.headers['stripe-signature'];
-	// const event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
-	// console.log(event);
 	const body = JSON.parse(req.body);
 	if (
 		body.type === 'charge.succeeded' &&
@@ -33,7 +30,7 @@ app.post('/', (req, res) => {
 			} else {
 				const charge = body.data.object;
 				const source = body.data.object.source;
-				const bookeoType = getBookeoType(charge.description);
+				console.log('======================');
 				console.log('customer');
 				console.log(customer);
 				console.log('body');
@@ -42,18 +39,19 @@ app.post('/', (req, res) => {
 				console.log(chage);
 				console.log('source');
 				console.log(source);
-				if (bookeoType.bookingId) {
-					getBookeoDetails(bookeoType.bookingId, (err, data) => {
-						if (err) {
-							console.log(err);
-							res.sendStatus(500);
-						} else {
-							console.log(data);
-							res.sendStatus(200);
-						}
+				console.log('======================');
+				if (charge.receipt_email === 'escape@leave-in-time.com') {
+					generateSellsyData(customer, charge, source, (err, data) => {
+						sellsyProcess(data, (err, result) => {
+							if (err) {
+								console.log(err);
+								res.sendStatus(500);
+							} else {
+								console.log(result);
+								res.sendStatus(200);
+							}
+						});
 					});
-				} else {
-					res.sendStatus(200);
 				}
 			}
 		});
