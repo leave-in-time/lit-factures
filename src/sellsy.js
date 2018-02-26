@@ -194,8 +194,8 @@ const sellsyProcess = (data, cb) => {
 								if (err) cb(err);
 								else {
 									if (
-										charge.receipt_email === 'escape@leave-in-time.com' ||
-										charge.receipt_email === 'xavier.seignard@gmail.com'
+										data.customer.third.email === 'escape@leave-in-time.com' ||
+										data.customer.third.email === 'xavier.seignard@gmail.com'
 									) {
 										sendInvoice(
 											docid,
