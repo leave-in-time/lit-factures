@@ -193,12 +193,23 @@ const sellsyProcess = (data, cb) => {
 							createPayment(docid, data.payment, (err, result) => {
 								if (err) cb(err);
 								else {
-									sendInvoice(docid, data.customer.third.email, (err, result) => {
-										if (err) cb(err);
-										else {
-											cb(null, result);
-										}
-									});
+									if (
+										charge.receipt_email === 'escape@leave-in-time.com' ||
+										charge.receipt_email === 'xavier.seignard@gmail.com'
+									) {
+										sendInvoice(
+											docid,
+											data.customer.third.email,
+											(err, result) => {
+												if (err) cb(err);
+												else {
+													cb(null, result);
+												}
+											}
+										);
+									} else {
+										cb(null, result);
+									}
 								}
 							});
 						}
