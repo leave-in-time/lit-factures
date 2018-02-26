@@ -26,7 +26,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 			countrycode: source.address_country,
 		},
 	};
-	if (source.address_line2) stripeCustomer.address.part2 = source.address_line2;
+	if (source.address_line2) customer.address.part2 = source.address_line2;
 
 	// custom fields data
 	const customFields = {
