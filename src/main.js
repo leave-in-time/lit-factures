@@ -46,4 +46,4 @@ app.post('/', (req, res) => {
 	}
 });
 
-app.listen(3300, () => console.log('Running on port 3300 ...'));
+app.listen(process.env.PORT, () => console.log('Running on port 8080 ...'));
