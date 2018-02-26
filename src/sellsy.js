@@ -29,6 +29,38 @@ const getCustomer = (clientid, cb) => {
 };
 
 /**
+ * Gets an invoice by the stripe id
+ */
+const findInvoice = (stripeid, cb) => {
+	const params = {
+		doctype: 'invoice',
+		search: {
+			customfields: [
+				{
+					cfid: process.env.SELLSY_STRIPE_FIELD,
+					linkedtype: 'document',
+					value: stripeid,
+				},
+			],
+		},
+	};
+	sellsy
+		.api({
+			method: 'Document.getList',
+			params,
+		})
+		.then(data => {
+			if (data.status === 'success') {
+				const found = !Array.isArray(data.response.result);
+				cb(null, found);
+			} else cb(data.error);
+		})
+		.catch(e => {
+			cb(e);
+		});
+};
+
+/**
  * Creates a customer
  */
 const createCustomer = (customer, cb) => {
@@ -180,36 +212,44 @@ const sendInvoice = (docid, email, cb) => {
  * - send the invoice to the customer
  */
 const sellsyProcess = (data, cb) => {
-	createCustomer(data.customer, (err, customerid) => {
+	findInvoice(data.payment.stripe, (err, found) => {
 		if (err) cb(err);
+		else if (found) cb(new Error('There is already an invoice for this stripe payment'));
 		else {
-			data.invoice.document.thirdid = customerid;
-			createInvoice(data.invoice, (err, docid) => {
+			createCustomer(data.customer, (err, customerid) => {
 				if (err) cb(err);
 				else {
-					addCustomFields(docid, data.customFields, (err, result) => {
+					data.invoice.document.thirdid = customerid;
+					createInvoice(data.invoice, (err, docid) => {
 						if (err) cb(err);
 						else {
-							createPayment(docid, data.payment, (err, result) => {
+							addCustomFields(docid, data.customFields, (err, result) => {
 								if (err) cb(err);
 								else {
-									if (
-										data.customer.third.email === 'escape@leave-in-time.com' ||
-										data.customer.third.email === 'xavier.seignard@gmail.com'
-									) {
-										sendInvoice(
-											docid,
-											data.customer.third.email,
-											(err, result) => {
-												if (err) cb(err);
-												else {
-													cb(null, result);
-												}
+									createPayment(docid, data.payment, (err, result) => {
+										if (err) cb(err);
+										else {
+											if (
+												data.customer.third.email ===
+													'escape@leave-in-time.com' ||
+												data.customer.third.email ===
+													'xavier.seignard@gmail.com'
+											) {
+												sendInvoice(
+													docid,
+													data.customer.third.email,
+													(err, result) => {
+														if (err) cb(err);
+														else {
+															cb(null, result);
+														}
+													}
+												);
+											} else {
+												cb(null, result);
 											}
-										);
-									} else {
-										cb(null, result);
-									}
+										}
+									});
 								}
 							});
 						}
