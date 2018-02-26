@@ -106,6 +106,7 @@ const createPayment = (docid, data, cb) => {
 			docid,
 		},
 	};
+	if (data.bookeo) params.payment.notes = data.bookeo;
 	sellsy
 		.api({
 			method: 'Document.createPayment',
