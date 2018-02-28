@@ -36,7 +36,6 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 	const bookeoType = getBookeoType(charge.description);
 	if (bookeoType.bookingId) customFields.bookeo = bookeoType.bookingId;
 	const ttcAmount = charge.amount / 100;
-	const htAmount = ttcAmount / (1 + process.env.LIT_TVA / 100);
 
 	// payment data
 	const payment = {
@@ -77,7 +76,7 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 				row_type: 'once',
 				row_name,
 				row_notes,
-				row_unitAmount: htAmount,
+				row_unitAmount: ttcAmount,
 				row_qt: 1,
 				row_tax: process.env.LIT_TVA,
 			},
