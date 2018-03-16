@@ -112,6 +112,12 @@ const addCustomFields = (docid, data, cb) => {
 				value: data.bookeo,
 			};
 		}
+		if (data.gameDate) {
+			params.values['2'] = {
+				cfid: process.env.SELLSY_GAME_DATE_FIELD,
+				value: data.gameDate,
+			};
+		}
 		sellsy
 			.api({
 				method: 'CustomFields.recordValues',

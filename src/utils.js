@@ -90,12 +90,14 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 					bookeoType.bookingId
 				}`;
 			else {
-				const horaire = moment(data.startTime)
-					.tz('Europe/Paris')
-					.format('dddd D MMMM YYYY à HH:mm');
+				const date = moment(data.startTime).tz('Europe/Paris');
+				const horaire = date.format('dddd D MMMM YYYY à HH:mm');
 				invoice.row['1'].row_notes = `${data.room} le ${horaire} pour ${
 					data.persons
 				} joueurs.\nCode Bookeo : ${bookeoType.bookingId}`;
+
+				const timestamp = Math.floor(date.format('x') / 1000);
+				customFields.gameDate = timestamp;
 			}
 			cb(null, { customer, invoice, customFields, payment });
 		});
