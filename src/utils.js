@@ -82,6 +82,9 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 			},
 		},
 	};
+
+	if (bookeoType.type === 'voucher') invoice.document.tags = ['auto', 'cc'];
+
 	if (bookeoType.bookingId) {
 		payment.bookeo = bookeoType.bookingId;
 		getBookeoDetails(bookeoType.bookingId, (err, data) => {
