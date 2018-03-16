@@ -31,14 +31,15 @@ const customer = {
 };
 
 const payment = {
-	date: Date.now(),
-	amount: '108',
+	date: Math.floor(Date.now() / 1000),
+	amount: '90',
 	stripe: 'ch_1ByfqWCXs31J92vHJpL8sIVY',
 };
 
 const customFields = {
 	stripe: 'XXXXXXX',
 	bookeo: 'YYYYYYY',
+	gameDate: Math.floor(Date.now() / 1000),
 };
 
 const data = {
@@ -47,3 +48,5 @@ const data = {
 	customFields,
 	payment,
 };
+
+module.exports = data;

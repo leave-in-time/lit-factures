@@ -239,7 +239,9 @@ const sellsyProcess = (data, cb) => {
 												data.customer.third.email ===
 													'escape@leave-in-time.com' ||
 												data.customer.third.email ===
-													'xavier.seignard@gmail.com'
+													'xavier.seignard@gmail.com' ||
+												data.customer.third.email ===
+													'paris@leave-in-time.com'
 											) {
 												sendInvoice(
 													docid,

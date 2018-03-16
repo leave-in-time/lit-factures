@@ -25,9 +25,9 @@ const getBookeoDetails = (bookingId, cb) => {
 };
 
 const getBookeoType = description => {
-	const voucherDescription = 'leave-in-time - Chèque-cadeau';
+	const voucherDescription = `${process.env.BOOKEO_VOUCHER_DESCRIPTION} - Chèque-cadeau`;
 	const multipleDescription = 'réservations';
-	const singleDescription = 'Leave in Time Nantes - Réservation ';
+	const singleDescription = `Leave in Time ${process.env.BOOKEO_CITY_DESCRIPTION} - Réservation `;
 	if (description === voucherDescription) return { type: 'voucher' };
 	else if (description.includes(multipleDescription)) return { type: 'multiple' };
 	else {
