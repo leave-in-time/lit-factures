@@ -235,14 +235,7 @@ const sellsyProcess = (data, cb) => {
 									createPayment(docid, data.payment, (err, result) => {
 										if (err) cb(err);
 										else {
-											if (
-												data.customer.third.email ===
-													'escape@leave-in-time.com' ||
-												data.customer.third.email ===
-													'xavier.seignard@gmail.com' ||
-												data.customer.third.email ===
-													'paris@leave-in-time.com'
-											) {
+											if (process.env.BOOKEO_CITY_DESCRIPTION === 'Nantes') {
 												sendInvoice(
 													docid,
 													data.customer.third.email,
