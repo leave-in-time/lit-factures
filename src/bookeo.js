@@ -25,16 +25,24 @@ const getBookeoDetails = (bookingId, cb) => {
 };
 
 const getBookeoType = description => {
-	const voucherDescription = `${process.env.BOOKEO_VOUCHER_DESCRIPTION} - Chèque-cadeau`;
+	const voucherDescription = 'Chèque-cadeau';
 	const multipleDescription = 'réservations';
-	const singleDescription = `Leave in Time ${process.env.BOOKEO_CITY_DESCRIPTION} - Réservation `;
-	if (description === voucherDescription) return { type: 'voucher' };
-	else if (description.includes(multipleDescription)) return { type: 'multiple' };
-	else {
-		const bookingId = description.replace(singleDescription, '');
+	const singleDescription = 'Réservation ';
+
+	if (description.includes(voucherDescription))
+		// voucher
+		return { type: 'voucher' };
+	else if (description.includes(multipleDescription))
+		// multiple
+		return { type: 'multiple' };
+	else if (description.includes(singleDescription)) {
+		// single
+		const bookingId = description.replace(/\D/g, '');
 		if (isNaN(bookingId)) return { type: 'unknown' };
 		else return { type: 'single', bookingId };
-	}
+	} else
+		// unknown
+		return { type: 'unknown' };
 };
 
 module.exports = {
