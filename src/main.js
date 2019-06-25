@@ -28,9 +28,11 @@ app.post('/', (req, res) => {
 				console.log(err);
 				res.sendStatus(500);
 			} else {
+				console.log(customer);
 				const charge = body.data.object;
 				const source = body.data.object.source;
 				generateSellsyData(customer, charge, source, (err, data) => {
+					console.log(data);
 					sellsyProcess(data, (err, result) => {
 						if (err) {
 							console.log(err);
