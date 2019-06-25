@@ -9,17 +9,17 @@ const generateSellsyData = (stripeCustomer, charge, source, cb) => {
 	// customer data
 	const customer = {
 		third: {
-			name: stripeCustomer.description,
+			name: stripeCustomer.name,
 			email: charge.receipt_email,
 			type: 'person',
 		},
 		contact: {
-			name: stripeCustomer.description,
+			name: stripeCustomer.name,
 			forename: '',
 			civil: '',
 		},
 		address: {
-			name: stripeCustomer.description,
+			name: stripeCustomer.name,
 			part1: source.address_line1,
 			zip: source.address_zip,
 			town: source.address_city,
