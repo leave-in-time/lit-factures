@@ -1,0 +1,99 @@
+{
+    "id": "evt_1F6MXGCXs31J92vH7eHcQp5J",
+    "object": "event",
+    "api_version": "2015-09-23",
+    "created": 1565551017,
+    "data": {
+        "object": {
+            "id": "ch_1F6MXECXs31J92vHOxTd3fAe",
+            "object": "charge",
+            "amount": 4000,
+            "amount_refunded": 0,
+            "application": "ca_2TRUQjORDKjOabOVeWzLdWyHVizCvMZZ",
+            "application_fee": null,
+            "application_fee_amount": null,
+            "balance_transaction": "txn_1F6MXFCXs31J92vHKQ3DIXTU",
+            "billing_details": {
+                "address": {
+                    "city": "hanches",
+                    "country": "FR",
+                    "line1": "4 rue des graviers",
+                    "line2": "",
+                    "postal_code": "28130",
+                    "state": ""
+                },
+                "email": null,
+                "name": "reuiller",
+                "phone": null
+            },
+            "captured": true,
+            "created": 1565551016,
+            "currency": "eur",
+            "customer": "cus_FbZgXJzs4k9A9W",
+            "description": null,
+            "destination": null,
+            "dispute": null,
+            "failure_code": null,
+            "failure_message": null,
+            "fraud_details": {},
+            "invoice": null,
+            "livemode": true,
+            "metadata": {},
+            "on_behalf_of": null,
+            "order": null,
+            "outcome": {
+                "network_status": "approved_by_network",
+                "reason": null,
+                "risk_level": "normal",
+                "seller_message": "Payment complete.",
+                "type": "authorized"
+            },
+            "paid": true,
+            "payment_intent": "pi_1F6MXDCXs31J92vHZg8CHGlz",
+            "payment_method": "pm_1F6MXCCXs31J92vH4FyzG17N",
+            "payment_method_details": {
+                "card": {
+                    "brand": "visa",
+                    "checks": {
+                        "address_line1_check": "unavailable",
+                        "address_postal_code_check": "unavailable",
+                        "cvc_check": "pass"
+                    },
+                    "country": "FR",
+                    "exp_month": 9,
+                    "exp_year": 2021,
+                    "fingerprint": "qarMDI5dKZmfLTAL",
+                    "funding": "debit",
+                    "last4": "2310",
+                    "three_d_secure": null,
+                    "wallet": null
+                },
+                "type": "card"
+            },
+            "receipt_email": "guillaume.reuiller@gmail.com",
+            "receipt_number": "1565-9194",
+            "receipt_url": "https://pay.stripe.com/receipts/acct_16m0UfCXs31J92vH/ch_1F6MXECXs31J92vHOxTd3fAe/rcpt_FbZgKu3tjCzw5VzMehgSvlIvEJ1HCcJ",
+            "refunded": false,
+            "refunds": {
+                "object": "list",
+                "data": [],
+                "has_more": false,
+                "total_count": 0,
+                "url": "/v1/charges/ch_1F6MXECXs31J92vHOxTd3fAe/refunds"
+            },
+            "review": null,
+            "shipping": null,
+            "source": null,
+            "source_transfer": null,
+            "statement_descriptor": "Cheque-cadeau - Leave",
+            "statement_descriptor_suffix": null,
+            "status": "succeeded",
+            "transfer_data": null,
+            "transfer_group": null
+        }
+    },
+    "livemode": true,
+    "pending_webhooks": 1,
+    "request": "req_eF7zYNEk9syqpf",
+    "type": "charge.succeeded"
+}
