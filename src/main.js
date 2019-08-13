@@ -28,10 +28,8 @@ app.post('/', (req, res) => {
 				console.log(err);
 				res.sendStatus(500);
 			} else {
-				console.log(JSON.stringify(body));
 				const charge = body.data.object;
-				const source = body.data.object.source;
-				generateSellsyData(customer, charge, source, (err, data) => {
+				generateSellsyData(customer, charge, (err, data) => {
 					sellsyProcess(data, (err, result) => {
 						if (err) {
 							console.log(err);

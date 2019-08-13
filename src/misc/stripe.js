@@ -5,7 +5,7 @@ const endpointSecret = process.env.STRIPE_ENDPOINT_SECRET;
 
 
 stripe.customers.retrieve(
-  'cus_FIoAQRflwTF7fV',
+  'cus_FbZgXJzs4k9A9W',
   (err, customer) => {
     console.log(customer.name);
   }
