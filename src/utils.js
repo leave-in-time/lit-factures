@@ -33,7 +33,7 @@ const generateSellsyData = (stripeCustomer, charge, cb) => {
 		stripe: charge.id,
 	};
 
-	const bookeoType = getBookeoType(charge.statement_descriptor);
+	const bookeoType = getBookeoType(charge.description);
 	if (bookeoType.bookingId) customFields.bookeo = bookeoType.bookingId;
 	const ttcAmount = charge.amount / 100;
 

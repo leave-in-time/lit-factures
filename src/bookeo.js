@@ -25,9 +25,12 @@ const getBookeoDetails = (bookingId, cb) => {
 };
 
 const getBookeoType = description => {
-	const voucherDescription = 'Cheque-cadeau';
-	const multipleDescription = 'servations';
-	const singleDescription = 'servation ';
+	const voucherDescription = 'Chèque-cadeau';
+	const multipleDescription = 'réservations';
+	const singleDescription = 'Réservation ';
+
+	// handle null case
+	if (!description) return { type: 'unknown' };
 
 	if (description.includes(voucherDescription))
 		// voucher
