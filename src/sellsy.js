@@ -210,6 +210,28 @@ const sendInvoice = (docid, email, cb) => {
 }
 
 /**
+ * Validate the given invoice
+ */
+ const validateInvoice = (docid) => {
+  const params = {
+    docid,
+    date: Math.floor(Date.now() / 1000),
+  }
+  sellsy
+    .api({
+      method: 'Document.validate',
+      params,
+    })
+    .then(data => {
+      if (data.status === 'success') cb(null, data)
+      else cb(data.error)
+    })
+    .catch(e => {
+      cb(e)
+    })
+}
+
+/**
  * The whole process:
  * - create a customer
  * - create an invoice attached to the customer
@@ -221,7 +243,7 @@ const sellsyProcess = (data, cb) => {
   findInvoice(data.payment.stripe, (err, found) => {
     if (err) cb(err)
     else if (found)
-      cb(new Error('There is already an invoice for this stripe payment'))
+      cb(null, 'There is already an invoice for this stripe payment')
     else {
       createCustomer(data.customer, (err, customerid) => {
         if (err) cb(err)
@@ -236,20 +258,23 @@ const sellsyProcess = (data, cb) => {
                   createPayment(docid, data.payment, (err, result) => {
                     if (err) cb(err)
                     else {
-                      if (process.env.BOOKEO_CITY_DESCRIPTION === 'Nantes') {
-                        sendInvoice(
-                          docid,
-                          data.customer.third.email,
-                          (err, result) => {
-                            if (err) cb(err)
-                            else {
-                              cb(null, result)
+                      validateInvoice(docid, (err, result) => {
+                        if (err) cb(err)
+                        else if (process.env.BOOKEO_CITY_DESCRIPTION === 'Nantes') {
+                          sendInvoice(
+                            docid,
+                            data.customer.third.email,
+                            (err, result) => {
+                              if (err) cb(err)
+                              else {
+                                cb(null, result)
+                              }
                             }
-                          }
-                        )
-                      } else {
-                        cb(null, result)
-                      }
+                          )
+                        } else {
+                          cb(null, result)
+                        }
+                      })
                     }
                   })
                 }
