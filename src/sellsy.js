@@ -255,10 +255,10 @@ const sellsyProcess = (data, cb) => {
               addCustomFields(docid, data.customFields, (err, result) => {
                 if (err) cb(err)
                 else {
-                  createPayment(docid, data.payment, (err, result) => {
+                  validateInvoice(docid, (err, result) => {
                     if (err) cb(err)
                     else {
-                      validateInvoice(docid, (err, result) => {
+                      createPayment(docid, data.payment, (err, result) => {
                         if (err) cb(err)
                         else if (process.env.BOOKEO_CITY_DESCRIPTION === 'Nantes') {
                           sendInvoice(
@@ -267,12 +267,12 @@ const sellsyProcess = (data, cb) => {
                             (err, result) => {
                               if (err) cb(err)
                               else {
-                                cb(null, result)
+                                cb(null, `Invoice ${docid} sent!`);
                               }
                             }
                           )
                         } else {
-                          cb(null, result)
+                          cb(null, `Invoice ${docid} created!`);
                         }
                       })
                     }

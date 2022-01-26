@@ -33,7 +33,7 @@ app.post('/', (req, res) => {
         generateSellsyData(customer, charge, (err, data) => {
           sellsyProcess(data, (err, result) => {
             if (err) {
-              console.log(err)
+              console.error(err)
               res.sendStatus(500)
             } else {
               console.log(result)
