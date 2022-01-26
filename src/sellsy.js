@@ -212,7 +212,7 @@ const sendInvoice = (docid, email, cb) => {
 /**
  * Validate the given invoice
  */
- const validateInvoice = (docid) => {
+ const validateInvoice = (docid, cb) => {
   const params = {
     docid,
     date: Math.floor(Date.now() / 1000),
