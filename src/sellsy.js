@@ -267,12 +267,12 @@ const sellsyProcess = (data, cb) => {
                             (err, result) => {
                               if (err) cb(err)
                               else {
-                                cb(null, `Invoice ${docid} sent!`);
+                                cb(null, docid);
                               }
                             }
                           )
                         } else {
-                          cb(null, `Invoice ${docid} created!`);
+                          cb(null, docid);
                         }
                       })
                     }
