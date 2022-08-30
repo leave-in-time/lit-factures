@@ -21,7 +21,7 @@
 		"dotenv": "^5.0.0",
 		"express": "^4.16.2",
 		"moment": "^2.20.1",
-		"moment-timezone": "^0.5.14",
+		"moment-timezone": "^0.5.35",
 		"node-sellsy": "^1.5.3",
 		"request": "^2.83.0",
 		"stripe": "^5.4.0"
